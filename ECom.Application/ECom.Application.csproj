@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ECom.Domain\ECom.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\ECom.Application\ECom.Application.csproj" />
   </ItemGroup>
 
 </Project>
