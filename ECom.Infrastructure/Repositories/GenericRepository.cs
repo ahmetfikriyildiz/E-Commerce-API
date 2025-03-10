@@ -1,37 +1,48 @@
 ﻿using ECom.Domain.Interfaces;
+using ECom.Infrastructure.Data;
+using ECom.Application.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECom.Infrastructure.Repositories
 {
-    public class GenericRepository<TEntity> : IGeneric<TEntity> where TEntity : class
+    public class GenericRepository<TEntity>(AppDbContext context) : IGeneric<TEntity> where TEntity : class
     {
-        public Task<TEntity> AddAsync(TEntity entity)
+        public async Task<int> AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            context.Set<TEntity>().Add(entity);
+            return await context.SaveChangesAsync();
         }
 
-        public Task<TEntity> DeleteAsync(Guid id)
+        public async Task<int> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = await context.Set<TEntity>().FindAsync(id);
+            if (entity != null)
+                throw new ItemNotFoundException($"Item with {id} not found");
+
+            context.Set<TEntity>().Remove(entity);
+            return await context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
-        public Task<TEntity> GetByIdAsync(Guid id)
+        public async Task<TEntity> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var result =await context.Set<TEntity>().FindAsync(id);
+            return result!;
         }
 
-        public Task<TEntity> UpdateAsync(TEntity entity)
+        public async Task<int> UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            context.Set<TEntity>().Update(entity);
+            return await context.SaveChangesAsync();
         }
     }
 }

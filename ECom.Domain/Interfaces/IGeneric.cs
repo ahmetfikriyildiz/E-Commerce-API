@@ -10,9 +10,9 @@ namespace ECom.Domain.Interfaces
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(Guid id);
-        Task<TEntity> AddAsync(TEntity entity);
-        Task<TEntity> UpdateAsync(TEntity entity);
-        Task<TEntity> DeleteAsync(Guid id);
+        Task<int> AddAsync(TEntity entity);
+        Task<int> UpdateAsync(TEntity entity);
+        Task<int> DeleteAsync(Guid id);
 
     }
 }
