@@ -1,4 +1,7 @@
-﻿using ECom.Infrastructure.Data;
+﻿using ECom.Domain.Entities;
+using ECom.Domain.Interfaces;
+using ECom.Infrastructure.Data;
+using ECom.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +28,8 @@ namespace ECom.Infrastructure.AppDI
             }),
             ServiceLifetime.Scoped);
 
+            services.AddScoped<IGeneric<Product>,GenericRepository<Product>>();
+            services.AddScoped<IGeneric<Product>,GenericRepository<Product>>();
 
             return services;
         }
