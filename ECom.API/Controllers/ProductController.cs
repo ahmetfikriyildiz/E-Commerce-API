@@ -24,7 +24,20 @@ namespace ECom.API.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add(CreateProduct product)
         {
-
+            var result = await productService.AddAsync(product);
+            return result.Succes? Ok(result) : BadRequest(result);
+        }
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(UpdateProduct product)
+        {
+            var result = await productService.UpdateAsync(product);
+            return result.Succes ? Ok(result) : BadRequest(result);
+        }
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await productService.DeleteAsync(id);
+            return result.Succes ? Ok(result) : BadRequest(result);
         }
     }
 }
