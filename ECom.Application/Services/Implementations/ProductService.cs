@@ -25,8 +25,11 @@ namespace ECom.Application.Services.Implementations
         public async Task<ServiceResponse> DeleteAsync(Guid id)
         {
             int result = await productInterface.DeleteAsync(id);
+            //if (result == 0)
+            //    return new ServiceResponse(false, "Product failed to be deleted");
+
             return result > 0 ? new ServiceResponse(true, "Product Deleted") :
-                new ServiceResponse(false, "Product failed to be deleted");
+                new ServiceResponse(false, "Product not found or failed to be deleted");
 
         }
 

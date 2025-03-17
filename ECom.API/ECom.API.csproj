@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ECom.Application\ECom.Application.csproj" />
+    <ProjectReference Include="..\ECom.Infrastructure\ECom.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

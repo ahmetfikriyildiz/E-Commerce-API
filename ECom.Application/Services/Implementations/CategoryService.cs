@@ -26,8 +26,11 @@ namespace ECom.Application.Services.Implementations
         public async Task<ServiceResponse> DeleteAsync(Guid id)
         {
             int result = await categoryInterface.DeleteAsync(id);
+            //if (result == 0)
+            //    return new ServiceResponse(false, "Category failed to be deleted");
+
             return result > 0 ? new ServiceResponse(true, "Category Deleted") :
-                new ServiceResponse(false, "Category failed to be deleted");
+                new ServiceResponse(false, "Category not found or failed to be deleted");
         }
 
         public async Task<IEnumerable<GetCategory>> GetAllAsync()

@@ -29,7 +29,7 @@ namespace ECom.Infrastructure.AppDI
             ServiceLifetime.Scoped);
 
             services.AddScoped<IGeneric<Product>,GenericRepository<Product>>();
-            services.AddScoped<IGeneric<Product>,GenericRepository<Product>>();
+            services.AddScoped<IGeneric<Category>,GenericRepository<Category>>();
 
             return services;
         }
