@@ -24,12 +24,18 @@ namespace ECom.API.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add(CreateCategory category)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             var result = await categoryService.AddAsync(category);
             return result.Succes ? Ok(result) : BadRequest(result);
         }
         [HttpPut("Update")]
         public async Task<IActionResult> Update(UpdateCategory category)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var result = await categoryService.UpdateAsync(category);
             return result.Succes ? Ok(result) : BadRequest(result);
         }

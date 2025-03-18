@@ -2,6 +2,7 @@
 using ECom.Domain.Interfaces;
 using ECom.Infrastructure.Data;
 using ECom.Infrastructure.Repositories;
+using EntityFramework.Exceptions.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +26,7 @@ namespace ECom.Infrastructure.AppDI
                 sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName);
                 sqlOptions.EnableRetryOnFailure();
 
-            }),
+            }).UseExceptionProcessor(),
             ServiceLifetime.Scoped);
 
             services.AddScoped<IGeneric<Product>,GenericRepository<Product>>();
