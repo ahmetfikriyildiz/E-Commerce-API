@@ -20,6 +20,8 @@ using System.Threading.Tasks;
 using ECom.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using ECom.Domain.Interfaces.Authentication;
+using ECom.Infrastructure.Repositories.Authentication;
 
 namespace ECom.Infrastructure.AppDI
 {
@@ -41,6 +43,9 @@ namespace ECom.Infrastructure.AppDI
             services.AddScoped<IGeneric<Product>,GenericRepository<Product>>();
             services.AddScoped<IGeneric<Category>,GenericRepository<Category>>();
             services.AddScoped(typeof(IAppLogger<>), typeof(SerilogLoggerAdapter<>));
+            services.AddScoped<IUserManagement, UserManagement>();
+            services.AddScoped<IRoleManagement, RoleManagement>();
+            services.AddScoped<ITokenManagement, TokenManagement>();
 
             services.AddDefaultIdentity<AppUser>(options =>
             {
@@ -75,6 +80,7 @@ namespace ECom.Infrastructure.AppDI
                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:Key"]!)),
                 };
             });
+
 
             return services;
         }
