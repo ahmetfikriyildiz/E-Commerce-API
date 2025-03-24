@@ -27,7 +27,7 @@ namespace ECom.API.Controllers
                 return BadRequest(ModelState);
 
             var result = await productService.AddAsync(product);
-            return result.Succes? Ok(result) : BadRequest(result);
+            return result.Success? Ok(result) : BadRequest(result);
         }
         [HttpPut("Update")]
         public async Task<IActionResult> Update(UpdateProduct product)
@@ -36,13 +36,13 @@ namespace ECom.API.Controllers
                 return BadRequest(ModelState);
 
             var result = await productService.UpdateAsync(product);
-            return result.Succes ? Ok(result) : BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await productService.DeleteAsync(id);
-            return result.Succes ? Ok(result) : BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
     }
 }
