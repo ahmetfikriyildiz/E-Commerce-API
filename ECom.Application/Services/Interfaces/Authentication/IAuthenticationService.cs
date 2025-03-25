@@ -12,6 +12,6 @@ namespace ECom.Application.Services.Interfaces.Authentication
     {
         Task<ServiceResponse> CreateUser(CreateUser user);
         Task<LoginResponse> LoginUser(LoginUser user);
-        Task<LoginResponse> ReviveToken(string refreshToken);
+        Task<LoginResponse> RefreshToken(string refreshToken);
     }
 }

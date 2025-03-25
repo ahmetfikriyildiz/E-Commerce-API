@@ -1,6 +1,8 @@
 ﻿using ECom.Application.Mapping;
 using ECom.Application.Services.Implementations;
+using ECom.Application.Services.Implementations.Authentication;
 using ECom.Application.Services.Interfaces;
+using ECom.Application.Services.Interfaces.Authentication;
 using ECom.Application.Validations;
 using ECom.Application.Validations.Authentication;
 using FluentValidation;
@@ -17,6 +19,7 @@ namespace ECom.Application.DependencyInjection
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IValidationService,ValidationService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();

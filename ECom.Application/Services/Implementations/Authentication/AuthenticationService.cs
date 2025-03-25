@@ -48,14 +48,47 @@ namespace ECom.Application.Services.Implementations.Authentication
             return new ServiceResponse { Message = "Account created successfully", Success = true };
         }
 
-        public Task<LoginResponse> LoginUser(LoginUser user)
+        public async Task<LoginResponse> LoginUser(LoginUser user)
         {
-            throw new NotImplementedException();
+            var _validationResult = await validationService.ValidateAsync(user, loginUserValidator);
+            if (!_validationResult.Success)
+            {
+                return new LoginResponse { Message = _validationResult.Message};
+            }
+            var mappedModel = mapper.Map<AppUser>(user);
+            mappedModel.PasswordHash = user.Password;
+
+            bool loginResult = await userManagement.LoginUser(mappedModel);
+            if (!loginResult)
+            {
+                return new LoginResponse { Message = "Invalid Email or Password" };
+            }
+            var _user = await userManagement.GetUserByEmail(user.Email);
+            var claims = await userManagement.GetUserClaims(user.Email);
+            
+            var jwtToken = tokenManagement.GenerateToken(claims);
+            var refreshToken = tokenManagement.GetRefreshToken();
+
+            var addRefreshTokenResult = await tokenManagement.AddRefreshToken(_user!.Id, refreshToken);
+            return addRefreshTokenResult <= 0 ? new LoginResponse { Message = "An error occured in login. Please try again." } :
+                new LoginResponse {Success = true , Token = jwtToken, RefreshToken = refreshToken };
         }
 
-        public Task<LoginResponse> ReviveToken(string refreshToken)
+        public async Task<LoginResponse> RefreshToken(string refreshToken)
         {
-            throw new NotImplementedException();
+            bool validateTokenResult = tokenManagement.ValidateRefreshToken(refreshToken).Result;
+            if (!validateTokenResult)
+            {
+                return new LoginResponse { Message = "Invalid Refresh Token" };
+            }
+            var userId = await tokenManagement.GetUserIdByRefreshToken(refreshToken);
+            var user = await userManagement.GetUserById(userId);
+            var claims = await userManagement.GetUserClaims(user!.Email!);
+            var jwtToken = tokenManagement.GenerateToken(claims);
+            var newRefreshToken = tokenManagement.GetRefreshToken();
+            await tokenManagement.UpdateRefreshToken(userId, newRefreshToken);
+            return new LoginResponse { Success = true, Token = jwtToken, RefreshToken = newRefreshToken };
+
         }
     }
 }
