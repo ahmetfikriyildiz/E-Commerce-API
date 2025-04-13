@@ -14,7 +14,7 @@ This is a full-stack e-commerce web application built with **ASP.NET Core Web AP
 
 ### 🛠 Admin
 - Add, update, and delete products
-- Manage categories
+- Manage categories.
 
 ---
 
