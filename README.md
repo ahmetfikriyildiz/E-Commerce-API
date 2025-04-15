@@ -13,7 +13,7 @@ This is a full-stack e-commerce web application built with **ASP.NET Core Web AP
 - Place and view past orders
 
 ### 🛠 Admin
-- Add, update, and delete products
+- Add, update, and delete products.
 - Manage categories.
 
 ---
