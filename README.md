@@ -1,6 +1,6 @@
 # 🛒 Basic Online Store
 
-This is a full-stack e-commerce web application built with **ASP.NET Core Web API** and **React**. It allows users to browse products, add items to their cart, and place orders. Admin users can manage products through a basic panel.
+This is a full-stack e-commerce web application built with **ASP.NET Core Web API** and **React**. It allows users to browse products, add items to their cart, and place orders. Admin users can manage products through a basic panel..
 
 ---
 
