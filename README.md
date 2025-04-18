@@ -10,7 +10,7 @@ This is a full-stack e-commerce web application built with **ASP.NET Core Web AP
 - User registration and login (JWT-based).
 - View products and product details
 - Add/remove items to/from shopping cart
-- Place and view past orders
+- Place and view past orders.
 
 ### 🛠 Admin
 - Add, update, and delete products
